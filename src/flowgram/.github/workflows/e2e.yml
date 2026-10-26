@@ -1,0 +1,40 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    branches: ["main"]
+  merge_group:
+    branches: ["main"]
+
+jobs:
+  e2e:
+    # Playwright 1.56's browser/dependency bundles support Ubuntu 24.04.
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Rush Install
+        run: node common/scripts/install-run-rush.js install
+
+      - name: Rush build
+        run: node common/scripts/install-run-rush.js build
+
+      # 缓存 Playwright 浏览器
+      - name: Cache Playwright browsers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('e2e/fixed-layout/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: Install Playwright Browsers
+        run: pushd e2e/fixed-layout && npx playwright install --with-deps --only-shell chromium && popd
+
+      - name: Run E2E tests
+        run: node common/scripts/install-run-rush.js e2e:test --verbose

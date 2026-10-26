@@ -1,0 +1,9 @@
+{
+  "name": "auto-rename-ref",
+  "depMaterials": [
+    "flow-value"
+  ],
+  "depPackages": [
+    "lodash-es"
+  ]
+}

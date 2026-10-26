@@ -1,0 +1,13 @@
+{
+  "flowgram": {
+    "upstream": "https://github.com/bytedance/flowgram.ai",
+    "upstream_base": "02a01680b53facd3287ba693b588a41527c520a3",
+    "modified_snapshot": "0bf106547557fcae923481bf6dd3fdd88c66e079"
+  },
+  "jeecgboot": {
+    "upstream": "https://github.com/jeecgboot/JeecgBoot",
+    "version": "3.9.5",
+    "snapshot": "current local source with FlowGram wrapper"
+  },
+  "release_date": "2026-10-26"
+}
